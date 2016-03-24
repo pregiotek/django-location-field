@@ -25,7 +25,7 @@
             var options = {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            
+
             location_map = new google.maps.Map(map[0], options);
 
             var initial_position;
@@ -48,6 +48,16 @@
 
             google.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
                 savePosition(mouseEvent.latLng);
+            });
+        	autocomplete = new google.maps.places.Autocomplete(location_based[0]);
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function (event) {
+                var place = autocomplete.getPlace();
+                if(!place.geometry) {
+                    return;
+                }
+                marker.setPosition(place.geometry.location);
+              savePosition(place.geometry.location);
             });
 
             google.maps.event.addListener(location_map, 'click', function(mouseEvent){
@@ -75,7 +85,7 @@
                                 lstr.push(b.val())
                         });
 
-                        if (lstr.length > 0 && suffix != '') 
+                        if (lstr.length > 0 && suffix != '')
                             lstr.push(suffix);
 
                         geocode(lstr.join(','), function(l){
@@ -84,10 +94,10 @@
                         });
                     };
 
-                if (f.is('select'))
-                    f.change(cb);
-                else
-                    f.keyup(cb);
+//                if (f.is('select'))
+//                    f.change(cb);
+//                else
+//                    f.keyup(cb);
             });
 
             // Prevents querying Google Maps everytime field changes
@@ -170,7 +180,10 @@
             $based_fields = $(values.based_fields),
             zoom = parseInt(values.zoom),
             suffix = values.suffix;
-
+        
         location_field_load($map, $based_fields, zoom, suffix);
     });
+    
+    var based_fields;
+
 });
