@@ -14,16 +14,18 @@
                 location_map.panTo(point);
             }
             else {
-                var point = new google.maps.LatLng(1, 1);
+                var point = new google.maps.LatLng(50.850340,4.351710);
                 location_map.panTo(point)
+				location_map.setZoom(12);
             }
         }
 
         function load() {
-            var point = new google.maps.LatLng(1, 1);
+            var point = new google.maps.LatLng(50.850340,4.351710);
 
             var options = {
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scrollwheel: false
             };
 
             location_map = new google.maps.Map(map[0], options);
