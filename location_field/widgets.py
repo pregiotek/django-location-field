@@ -61,7 +61,6 @@ class LocationWidget(widgets.TextInput):
         attrs['data-zoom'] = self.zoom
         attrs['data-suffix'] = self.suffix
         attrs['data-map'] = '#map_' + name
-        attrs["disabled"] = "disabled"
 
         text_input = super(LocationWidget, self).render(name, value, attrs)
 
